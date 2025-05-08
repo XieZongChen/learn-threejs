@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { Group } from '@tweenjs/tween.js';
 
 interface IGraphicalOptions {
     dom: Element;
@@ -8,10 +9,11 @@ interface IGraphicalOptions {
 export class Graphical {
     dom: Element; // 渲染的 DOM 元素
     domResizeObserver: ResizeObserver; // DOM 元素大小变化观察者
-    curScene: THREE.Scene; // 当前显示的场景
+    scene: THREE.Scene; // 当前显示的场景
     camera: THREE.PerspectiveCamera; // 摄像机
     renderer: THREE.WebGLRenderer; // 渲染器
     renderClock: THREE.Clock; // 渲染时钟
+    tweenGroup: Group; // 动画组
     orbitControls: OrbitControls; // 控制器
 
     constructor({ dom }: IGraphicalOptions) {
@@ -19,7 +21,7 @@ export class Graphical {
         this.domResizeObserver = new ResizeObserver(this.domResize)
         this.domResizeObserver.observe(this.dom);
 
-        this.curScene = new THREE.Scene();
+        this.scene = new THREE.Scene();
 
         const width = dom.clientWidth;
         const height = dom.clientHeight;
@@ -33,13 +35,16 @@ export class Graphical {
 
         this.renderClock = new THREE.Clock();
 
+        this.tweenGroup = new Group();
+
         this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
 
         this.render()
     }
 
     private render() {
-        this.renderer.render(this.curScene, this.camera);
+        this.tweenGroup.update(this.renderClock.getDelta());
+        this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render);
     }
 
