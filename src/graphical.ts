@@ -29,6 +29,7 @@ export class Graphical {
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(width, height);
+        this.dom.append(this.renderer.domElement);
 
         this.renderClock = new THREE.Clock();
 
