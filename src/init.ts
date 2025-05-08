@@ -20,7 +20,7 @@ export function init(dom: Element, setStr: (message: string) => void) {
   const ambientLight = new THREE.AmbientLight(0xffffff);
   scene.add(ambientLight);
 
-  const width = 1000;
+  const width = window.innerWidth;
   const height = window.innerHeight - 80;
 
   const camera = new THREE.PerspectiveCamera(60, width / height, 1, 10000);
