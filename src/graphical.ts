@@ -58,4 +58,8 @@ export class Graphical {
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
     }
+
+    playStage() {}
+
+    clearStage() {}
 }
