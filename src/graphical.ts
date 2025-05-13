@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Group } from '@tweenjs/tween.js';
+import type { BaseStage } from './stages/base';
 
 interface IGraphicalOptions {
   dom: Element;
@@ -15,6 +16,7 @@ export class Graphical {
   renderClock: THREE.Clock; // 渲染时钟
   tweenGroup: Group; // 动画组
   orbitControls: OrbitControls; // 控制器
+  curStage?: BaseStage; // 当前场景
 
   constructor({ dom }: IGraphicalOptions) {
     this.dom = dom;
@@ -62,7 +64,23 @@ export class Graphical {
     this.camera.updateProjectionMatrix();
   }
 
-  playStage() {}
+  playStage(
+    StageClass: new (args: any) => BaseStage,
+    options: Record<string, any> = {}
+  ) {
+    const newStage = new StageClass({
+      scene: this.scene,
+      camera: this.camera,
+      tweenGroup: this.tweenGroup,
+      ...options,
+    });
+    this.curStage = newStage;
+  }
 
-  clearStage() {}
+  clearStage() {
+    if (this.curStage) {
+      this.curStage.clear();
+      this.curStage = undefined;
+    }
+  }
 }

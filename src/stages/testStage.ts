@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { BaseStage, type IStageBaseOptions } from './base';
 import { Easing, Tween, type Group } from '@tweenjs/tween.js';
 
-interface ITestStageOptions extends IStageBaseOptions {
+export interface ITestStageOptions extends IStageBaseOptions {
   setStr: (message: string) => void;
 }
 
