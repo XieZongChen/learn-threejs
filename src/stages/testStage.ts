@@ -1,13 +1,20 @@
 import * as THREE from 'three';
 import { BaseStage, type IStageBaseOptions } from './base';
 
+interface ITestStageOptions extends IStageBaseOptions {
+  setStr: (message: string) => void;
+}
+
 export class TestStage extends BaseStage {
   axesHelper: THREE.AxesHelper;
   directionalLight: THREE.DirectionalLight;
   ambientLight: THREE.AmbientLight;
   mesh: THREE.Group;
-  constructor(options: IStageBaseOptions) {
+  setStr: (message: string) => void;
+  constructor(options: ITestStageOptions) {
     super(options);
+    this.setStr = options.setStr;
+
     this.axesHelper = new THREE.AxesHelper(500);
     this.scene.add(this.axesHelper);
 
