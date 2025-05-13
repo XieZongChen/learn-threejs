@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { BaseStage, type IStageBaseOptions } from './base';
+import { Easing, Tween, type Group } from '@tweenjs/tween.js';
 
 interface ITestStageOptions extends IStageBaseOptions {
   setStr: (message: string) => void;
@@ -10,6 +11,7 @@ export class TestStage extends BaseStage {
   directionalLight: THREE.DirectionalLight;
   ambientLight: THREE.AmbientLight;
   mesh: THREE.Group;
+  tweenGroup: Group;
   setStr: (message: string) => void;
   constructor(options: ITestStageOptions) {
     super(options);
@@ -24,6 +26,8 @@ export class TestStage extends BaseStage {
 
     this.ambientLight = new THREE.AmbientLight(0xffffff);
     this.scene.add(this.ambientLight);
+
+    this.tweenGroup = options.tweenGroup;
 
     this.mesh = new THREE.Group();
     this.initMesh();
@@ -51,5 +55,26 @@ export class TestStage extends BaseStage {
     this.scene.remove(this.directionalLight);
     this.scene.remove(this.ambientLight);
     this.scene.remove(this.mesh);
+  }
+
+  jump(color: string) {
+    const box = this.mesh.getObjectByName(color);
+    if (!box) return;
+    const tween = new Tween(box.position)
+      .to(
+        {
+          ...box.position,
+          y: 100,
+        },
+        1000
+      )
+      .easing(Easing.Quadratic.InOut)
+      .repeat(0)
+      .start()
+      .onComplete(() => {
+        this.tweenGroup.remove(tween);
+        this.setStr(color + '已经 jump 完成');
+      });
+    this.tweenGroup.add(tween);
   }
 }
