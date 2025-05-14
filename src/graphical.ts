@@ -20,8 +20,6 @@ export class Graphical {
   }
 
   initialize({ dom }: { dom: Element }) {
-    console.log(dom);
-
     this.dom = dom;
     const width = dom.clientWidth;
     const height = dom.clientHeight;
@@ -67,8 +65,6 @@ export class Graphical {
     StageClass: new (args: any) => BaseStage,
     options: Record<string, any> = {}
   ) {
-    console.log('options', options);
-    
     const newStage = new StageClass({
       scene: this.scene,
       camera: this.camera,
