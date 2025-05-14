@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { BaseStage, type IStageBaseOptions } from './base';
-import { Easing, Tween, type Group } from '@tweenjs/tween.js';
+import { Easing, Group, Tween } from '@tweenjs/tween.js';
 
 export interface ITestStageOptions extends IStageBaseOptions {
   setStr: (message: string) => void;
@@ -11,7 +11,6 @@ export class TestStage extends BaseStage {
   directionalLight: THREE.DirectionalLight;
   ambientLight: THREE.AmbientLight;
   mesh: THREE.Group;
-  tweenGroup: Group;
   setStr: (message: string) => void;
   constructor(options: ITestStageOptions) {
     super(options);
@@ -27,10 +26,10 @@ export class TestStage extends BaseStage {
     this.ambientLight = new THREE.AmbientLight(0xffffff);
     this.scene.add(this.ambientLight);
 
-    this.tweenGroup = options.tweenGroup;
-
     this.mesh = new THREE.Group();
     this.initMesh();
+
+    this.scene.add(this.mesh);
   }
 
   private initMesh() {
