@@ -10,9 +10,9 @@ export class Graphical {
   camera!: THREE.PerspectiveCamera; // 摄像机
   renderer: THREE.WebGLRenderer; // 渲染器
   renderClock: THREE.Clock; // 渲染时钟
+  tweenGroup: TWEEN.Group; // 动画组
   orbitControls!: OrbitControls; // 控制器
   curStage?: BaseStage; // 当前场景
-  tweenGroup: TWEEN.Group; // 动画组
   constructor() {
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
