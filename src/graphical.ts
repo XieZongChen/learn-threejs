@@ -71,6 +71,7 @@ export class Graphical {
     const newStage = new StageClass({
       scene: this.scene,
       camera: this.camera,
+      tweenGroup: this.tweenGroup,
       ...options,
     });
     this.curStage = newStage;

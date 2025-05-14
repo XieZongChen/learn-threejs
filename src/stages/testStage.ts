@@ -56,7 +56,7 @@ export class TestStage extends BaseStage {
     this.scene.remove(this.mesh);
   }
 
-  jumpBox(color: string) {
+  jumpBox = (color: string) => {
     const box = this.mesh.getObjectByName(color);
     if (!box) return;
     const tween = new Tween(box.position)
