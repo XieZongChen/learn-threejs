@@ -59,11 +59,12 @@ export class TestStage extends BaseStage {
   jumpBox = (color: string) => {
     const box = this.mesh.getObjectByName(color);
     if (!box) return;
+    const jumped = box.position.y === 100;
     const tween = new Tween(box.position)
       .to(
         {
           ...box.position,
-          y: 100,
+          y: jumped ? 0 : 100,
         },
         1000
       )
