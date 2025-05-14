@@ -3,7 +3,7 @@ import { BaseStage, type IStageBaseOptions } from './base';
 import { Easing, Group, Tween } from '@tweenjs/tween.js';
 
 export interface ITestStageOptions extends IStageBaseOptions {
-  setStr: (message: string) => void;
+  setMsg: (message: string) => void;
 }
 
 export class TestStage extends BaseStage {
@@ -11,10 +11,10 @@ export class TestStage extends BaseStage {
   directionalLight: THREE.DirectionalLight;
   ambientLight: THREE.AmbientLight;
   mesh: THREE.Group;
-  setStr: (message: string) => void;
+  setMsg: (message: string) => void;
   constructor(options: ITestStageOptions) {
     super(options);
-    this.setStr = options.setStr;
+    this.setMsg = options.setMsg;
 
     this.axesHelper = new THREE.AxesHelper(500);
     this.scene.add(this.axesHelper);
@@ -72,8 +72,8 @@ export class TestStage extends BaseStage {
       .start()
       .onComplete(() => {
         this.tweenGroup.remove(tween);
-        this.setStr(color + '已经 jump 完成');
+        this.setMsg(color + '已经 jump 完成');
       });
     this.tweenGroup.add(tween);
-  }
+  };
 }

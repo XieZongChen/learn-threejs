@@ -9,14 +9,13 @@ export class Graphical {
   scene: THREE.Scene; // 当前显示的场景
   camera!: THREE.PerspectiveCamera; // 摄像机
   renderer: THREE.WebGLRenderer; // 渲染器
-  renderClock: THREE.Clock; // 渲染时钟
+  //   renderClock: THREE.Clock; // 渲染时钟
   tweenGroup: TWEEN.Group; // 动画组
   orbitControls!: OrbitControls; // 控制器
   curStage?: BaseStage; // 当前场景
   constructor() {
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
-    this.renderClock = new THREE.Clock();
     this.tweenGroup = new TWEEN.Group();
   }
 
@@ -56,18 +55,20 @@ export class Graphical {
     this.camera.updateProjectionMatrix();
   }
 
-  private render() {
+  private render = () => {
     if (this.tweenGroup.getAll().length) {
-      this.tweenGroup.update(this.renderClock.getDelta());
+      this.tweenGroup.update();
     }
     this.renderer.render(this.scene, this.camera);
-    requestAnimationFrame(this.render.bind(this));
-  }
+    requestAnimationFrame(this.render);
+  };
 
   playStage(
     StageClass: new (args: any) => BaseStage,
     options: Record<string, any> = {}
   ) {
+    console.log('options', options);
+    
     const newStage = new StageClass({
       scene: this.scene,
       camera: this.camera,
