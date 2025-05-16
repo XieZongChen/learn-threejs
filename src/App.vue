@@ -6,24 +6,8 @@ import { PerspectiveCameraStage } from './stages/perspectiveCameraStage';
 
 const menuOptions: MenuOption[] = [
   {
-    label: '且听风吟',
-    key: 'hear-the-wind-sing',
-  },
-  {
-    label: '1973年的弹珠玩具',
-    key: 'pinball-1973',
-    disabled: true,
-    children: [
-      {
-        label: '鼠',
-        key: 'rat',
-      },
-    ],
-  },
-  {
-    label: '寻羊冒险记',
-    key: 'a-wild-sheep-chase',
-    disabled: true,
+    label: '透视相机与视锥体',
+    key: 'PerspectiveCameraStage',
   },
 ];
 
@@ -50,6 +34,7 @@ onMounted(() => {
           :width="240"
         >
           <n-menu
+            default-value="PerspectiveCameraStage"
             :collapsed-width="64"
             :collapsed-icon-size="22"
             :options="menuOptions"
