@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as TWEEN from '@tweenjs/tween.js';
 import type { BaseStage } from './stages/base';
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 export class Graphical {
   private dom!: Element; // 渲染的 DOM 元素
@@ -13,10 +14,12 @@ export class Graphical {
   tweenGroup: TWEEN.Group; // 动画组
   orbitControls!: OrbitControls; // 控制器
   curStage?: BaseStage; // 当前场景
+  GUI: GUI; // GUI 控件
   constructor() {
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
     this.tweenGroup = new TWEEN.Group();
+    this.GUI = new GUI();
   }
 
   initialize({ dom }: { dom: Element }) {
@@ -69,6 +72,7 @@ export class Graphical {
       scene: this.scene,
       camera: this.camera,
       tweenGroup: this.tweenGroup,
+      GUI: this.GUI,
       ...options,
     });
     this.curStage = newStage;
