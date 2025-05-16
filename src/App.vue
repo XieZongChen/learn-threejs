@@ -42,43 +42,51 @@ const setMsg = (message: string) => {
   msg.value = message;
 };
 
-const jumpBox = (color: string) => {
-  (graph.curStage as any)?.jumpBox(color);
-};
 </script>
 
 <template>
   <div>
     <n-layout has-sider>
-      <n-layout-sider
-        bordered
-        collapse-mode="width"
-        :collapsed-width="64"
-        :width="240"
-      >
-        <n-menu
+      <div class="layout-left">
+        <div class="project-title">Learn Three.js</div>
+        <n-layout-sider
+          bordered
+          collapse-mode="width"
           :collapsed-width="64"
-          :collapsed-icon-size="22"
-          :options="menuOptions"
-        />
-      </n-layout-sider>
+          :width="240"
+        >
+          <n-menu
+            :collapsed-width="64"
+            :collapsed-icon-size="22"
+            :options="menuOptions"
+          />
+        </n-layout-sider>
+      </div>
+
       <n-layout>
-        <div id="content"></div>
+        <div id="content" class="content"></div>
       </n-layout>
     </n-layout>
   </div>
 </template>
 
 <style scoped>
-#content {
+.layout-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-title {
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.content {
   width: 100%;
   height: 100vh;
-}
-.operate {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: #fff;
-  padding: 20px;
 }
 </style>
