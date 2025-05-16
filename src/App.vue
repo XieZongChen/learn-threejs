@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { NLayout, NLayoutSider, NMenu, type MenuOption } from 'naive-ui';
 import { Graphical } from './graphical';
-import { TestStage } from './stages/testStage';
+import { PerspectiveCameraStage } from './stages/perspectiveCameraStage';
 
 const menuOptions: MenuOption[] = [
   {
@@ -33,14 +33,8 @@ onMounted(() => {
   const dom = document.querySelector('#content');
   if (!dom) return;
   graph.initialize({ dom });
-  graph.playStage(TestStage, { setMsg });
+  graph.playStage(PerspectiveCameraStage);
 });
-
-const msg = ref('');
-
-const setMsg = (message: string) => {
-  msg.value = message;
-};
 
 </script>
 
