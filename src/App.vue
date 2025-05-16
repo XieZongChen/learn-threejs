@@ -1,7 +1,31 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { NLayout, NLayoutSider, NMenu, type MenuOption } from 'naive-ui';
 import { Graphical } from './graphical';
 import { TestStage } from './stages/testStage';
+
+const menuOptions: MenuOption[] = [
+  {
+    label: '且听风吟',
+    key: 'hear-the-wind-sing',
+  },
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1973',
+    disabled: true,
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+      },
+    ],
+  },
+  {
+    label: '寻羊冒险记',
+    key: 'a-wild-sheep-chase',
+    disabled: true,
+  },
+];
 
 const graph = new Graphical();
 
@@ -25,15 +49,23 @@ const jumpBox = (color: string) => {
 
 <template>
   <div>
-    <div id="main">
-      <div id="content"></div>
-      <div id="operate" class="operate">
-        <button @click="jumpBox('red')">red</button>
-        <button @click="jumpBox('green')">green</button>
-        <button @click="jumpBox('blue')">blue</button>
-        <p>{{ msg }}</p>
-      </div>
-    </div>
+    <n-layout has-sider>
+      <n-layout-sider
+        bordered
+        collapse-mode="width"
+        :collapsed-width="64"
+        :width="240"
+      >
+        <n-menu
+          :collapsed-width="64"
+          :collapsed-icon-size="22"
+          :options="menuOptions"
+        />
+      </n-layout-sider>
+      <n-layout>
+        <div id="content"></div>
+      </n-layout>
+    </n-layout>
   </div>
 </template>
 
